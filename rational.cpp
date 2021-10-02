@@ -187,6 +187,19 @@ void Rational::Simplify()
 Rational& sqrt(const Rational& r)
 {
 	Rational res(r.num, r.den);
+	
+	double res_double = r.num / r.den;
+
+	res_double = sqrt(res_double);
+
+	long long res_int = *(long long*)(&res_double);
+
+	int E = (int)((res_int >> 52) & 0x07FF);
+	E -= 1023;
+
+	long long M = res_int & 0x0FFFFFFFFFFFFF;
+
+
 
 	return res;
 }

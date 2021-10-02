@@ -64,8 +64,8 @@ public:
 
 private:
 
-	int num;
-	int den;
+	long long int num;
+	long long int den;
 	
 	void Simplify();
 };
