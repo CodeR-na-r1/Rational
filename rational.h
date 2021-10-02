@@ -8,9 +8,9 @@ public:
 
 	Rational();
 
-	/*explicit*/ Rational(int number);
+	/*explicit*/ Rational(long long int number);
 
-	Rational(int number, int determinator);
+	Rational(long long int number, long long int determinator);
 
 	Rational& operator -() const;
 
@@ -52,22 +52,27 @@ public:
 
 	Rational& operator /(const Rational& r) const;
 
-	Rational& operator *=(const int& other);
+	Rational& operator *=(const long long int& other);
 
-	Rational& operator *(const int& other) const;
+	Rational& operator *(const long long int& other) const;
 
 	friend istream& operator >>(istream& in, Rational& r);
 
 	friend ostream& operator <<(ostream& out, const Rational& r);
 
-	friend Rational& sqrt(const Rational& r);
+	Rational& sqrt();
+
+	long long int NOD(long long int first, long long int second);
+
+	int getDen();
+
+	int getNum();
 
 private:
 
 	long long int num;
+
 	long long int den;
 	
 	void Simplify();
 };
-
-Rational& sqrt(const Rational& r);

@@ -15,14 +15,22 @@ int main()
 	cout << "Enter coefficient c: " << endl;
 	cin >> c;
 
-	Rational x1, x2;
-
 	Rational D = b * b - a * c * 4;
 
-	x1 = (-b + sqrt(D)) / 2;
-	x2 = (-b - sqrt(D)) / 2;
+	Rational x1 = (-b + D.sqrt()) / 2;
+	cout << x1 << endl;
 
-	cout << "Answer: x1 == " << x1 << ";	x2 == " << x2 << endl;
+	//Rational x2 = (-b - D.sqrt()) / 2;
+	//cout << x2 << endl;
 
+	//cout << "Answer: x1 == " << x1 << ";	x2 == " << x2 << endl;
+	system("pause");
 	return 0;
 }
+/*
+Пример коэффицентов уравнения:
+2 1
+-2 1
+-4 1
+
+*/
