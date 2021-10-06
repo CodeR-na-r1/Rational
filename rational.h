@@ -12,6 +12,8 @@ public:
 
 	Rational(long long int number, long long int determinator);
 
+	Rational(Rational& r);
+
 	Rational& operator -() const;
 
 	Rational& operator =(const Rational& r);
@@ -62,8 +64,6 @@ public:
 
 	Rational& sqrt();
 
-	long long int NOD(long long int first, long long int second);
-
 	int getDen();
 
 	int getNum();
@@ -75,4 +75,6 @@ private:
 	long long int den;
 	
 	void Simplify();
+
+	long long int NOD(long long int first, long long int second);
 };

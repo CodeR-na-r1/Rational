@@ -16,21 +16,47 @@ int main()
 	cin >> c;
 
 	Rational D = b * b - a * c * 4;
+	
+	if (D < 0)
+	{
 
-	Rational x1 = (-b + D.sqrt()) / 2;
-	cout << x1 << endl;
+		cout << "no solutions" << endl;
 
-	//Rational x2 = (-b - D.sqrt()) / 2;
-	//cout << x2 << endl;
+	}
+	else if (D == 0)
+	{
 
-	//cout << "Answer: x1 == " << x1 << ";	x2 == " << x2 << endl;
+		cout << "x == " << ((-b) / (a * 2)) << endl;
+
+	}
+	else if (D > 0)
+	{
+		Rational x1 = (-b + D.sqrt()) / (a * 2);
+
+		Rational x2 = (-b - D.sqrt()) / (a * 2);
+
+		cout << "Answer: x1 == " << x1 << ";	x2 == " << x2 << endl;
+	}
+
 	system("pause");
 	return 0;
 }
 /*
 Пример коэффицентов уравнения:
+6 1
+5 1
+4 1
+Ответ: Нет корней
+
+
 2 1
 -2 1
 -4 1
+Ответ: 2 и -1
 
+
+4 1
+4 1
+1 1
+Ответ: -0.5
 */

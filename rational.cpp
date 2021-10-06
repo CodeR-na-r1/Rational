@@ -16,6 +16,12 @@ Rational::Rational(long long int number, long long int determinator) :Rational(n
 	den = determinator;
 }
 
+Rational::Rational(Rational& r)
+{
+	num = r.num;
+	den = r.den;
+}
+
 Rational& Rational::operator -() const
 {
 	Rational rr(-num, den);
@@ -82,7 +88,7 @@ Rational Rational::operator--(int)
 
 bool Rational::operator ==(const Rational& r) const
 {
-	return (num == r.num) && (den == r.num);
+	return ((num == r.num) && (den == r.den));
 }
 
 bool Rational::operator !=(const Rational& r) const
@@ -90,24 +96,24 @@ bool Rational::operator !=(const Rational& r) const
 	return !(this->operator==(r));
 }
 
-bool Rational::operator >=(const Rational& r) const	//Ћогика может немного помен€тс€, надо сравнивать произведени€ числ и знаменателей 1 и 2 дробей соответсвенно (92-110 строгки)
+bool Rational::operator >=(const Rational& r) const	//ќпераци€ сравнени€ применима к дроб€м с любыми знаменател€ми (разными)
 {
-	return (num >= r.num) && (den == r.num);
+	return num * r.den >= r.num * den;
 }
 
 bool Rational::operator <=(const Rational& r) const
 {
-	return (num <= r.num) && (den == r.den);
+	return num * r.den <= r.num * den;
 }
 
 bool Rational::operator >(const Rational& r) const
 {
-	return (num > r.num) && (den == r.num);
+	return num * r.den > r.num * den;
 }
 
 bool Rational::operator <(const Rational& r) const
 {
-	return (num < r.num) && (den == r.den);
+	return num * r.den < r.num * den;
 }
 
 Rational& Rational::operator *=(const Rational& r)
@@ -174,37 +180,38 @@ void Rational::Simplify()
 		den = -den;
 	}
 
-	long long int temp = this->NOD(abs(num), abs(den));
-	do
+	long long int temp;
+
+	while ((temp = this->NOD(abs(num), abs(den))) != 1)
 	{
 		num /= temp;
 		den /= temp;
-		temp = this->NOD(abs(num), abs(den));
-	} while (temp != 1);
+	}
+	return;
 }
 
 Rational& Rational::sqrt()
 {
-	double res_double = num / den;
+	double res_double = num / den;	// ѕеревод Rational в double
 
-	res_double = std::sqrt(res_double);
+	res_double = std::sqrt(res_double);	// Ѕерем корень из double
 
-	long long res_int = *(long long*)(&res_double);
+	long long res_int = *(long long*)(&res_double);	// ѕриводим адрес к long long и сохран€ем в переменную long long
 
-	int E = (int)((res_int >> 52) & 0x07FF);
-	E -= 1023;
+	int E = (int)((res_int >> 52) & 0x07FF);	// ƒостаем пор€док из нашего числа ( [52..62] биты )
+	E -= 1023;	// ”бираем смещение из пор€дка
 
-	long long M = res_int & 0x0FFFFFFFFFFFFF;
+	long long M = res_int & 0x0FFFFFFFFFFFFF;	// ƒостаем мантиссу из числа ( [0..51] биты )
 
-	M = M | 0x010000000000000;
+	M = M | 0x010000000000000;	// —тавим 53 бит мантиссы, который не хранитс€ в числе,но подразумеваетс€ (так как всегда единица)
 
 	Rational res;
 
-	res.num = E >= 0 ? M << E : M >> (-E);
+	res.num = E >= 0 ? M << E : M >> (-E);	// ≈сли пор€док положительный, смещаем биты влево, иначе вправо. ( убираем нормализованную форму числа)
 
-	res.den = 1LL << 52;
+	res.den = 1LL << 52;	// —оответствующий к числителю знаменатель
 
-	res.Simplify();
+	res.Simplify();	// ”прощаем
 
 	return res;
 }
