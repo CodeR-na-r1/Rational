@@ -16,13 +16,13 @@ Rational::Rational(long long int number, long long int determinator) :Rational(n
 	den = determinator;
 }
 
-Rational::Rational(Rational& r)
+Rational::Rational(const Rational& r)
 {
 	num = r.num;
 	den = r.den;
 }
 
-Rational& Rational::operator -() const
+Rational Rational::operator -() const
 {
 	Rational rr(-num, den);
 	return rr;
@@ -43,7 +43,7 @@ Rational& Rational::operator +=(const Rational& r)
 	return	*this;
 }
 
-Rational& Rational::operator +(const Rational& r)const
+Rational Rational::operator +(const Rational& r)const
 {
 	Rational res(num, den);
 	res += r;
@@ -55,7 +55,7 @@ Rational& Rational::operator -=(const Rational& r)
 	return this->operator+=(r.operator-());
 }
 
-Rational& Rational::operator -(const Rational& r)const
+Rational Rational::operator -(const Rational& r)const
 {
 	return this->operator+(r.operator-());
 }
@@ -124,7 +124,7 @@ Rational& Rational::operator *=(const Rational& r)
 	return *this;
 }
 
-Rational& Rational::operator *(const Rational& r) const
+Rational Rational::operator *(const Rational& r) const
 {
 	Rational res(num, den);
 	res *= r;
@@ -139,7 +139,7 @@ Rational& Rational::operator /=(const Rational& r)
 	return *this;
 }
 
-Rational& Rational::operator /(const Rational& r) const
+Rational Rational::operator /(const Rational& r) const
 {
 	Rational res(num , den);
 	res /= r;
@@ -153,7 +153,7 @@ Rational& Rational::operator *=(const long long int& other)
 	return *this;
 }
 
-Rational& Rational::operator *(const long long int& other) const
+Rational Rational::operator *(const long long int& other) const
 {
 	Rational res(num, den);
 	res *= other;
@@ -190,7 +190,7 @@ void Rational::Simplify()
 	return;
 }
 
-Rational& Rational::sqrt()
+Rational Rational::sqrt()
 {
 	double res_double = num / den;	// Перевод Rational в double
 
