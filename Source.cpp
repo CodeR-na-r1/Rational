@@ -16,7 +16,7 @@ int main()
 	cin >> c;
 
 	Rational D = b * b - a * c * 4;
-	
+
 	if (D < 0)
 	{
 
@@ -32,10 +32,10 @@ int main()
 	else if (D > 0)
 	{
 		Rational x1 = (-b + D.sqrt()) / (a * 2);
+		cout << "Answer: x1 == " << x1 << ";";
 
 		Rational x2 = (-b - D.sqrt()) / (a * 2);
-
-		cout << "Answer: x1 == " << x1 << ";	x2 == " << x2 << endl;
+		cout<<"\tx2 == " << x2 << endl;
 	}
 
 	system("pause");
@@ -55,8 +55,8 @@ int main()
 Ответ: 2 и -1
 
 
-4 1
-4 1
 1 1
-Ответ: -0.5
+-22 21
+5 21
+Ответ: 1/3 and 5/7
 */

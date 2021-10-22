@@ -168,7 +168,7 @@ istream& operator >>(istream& in, Rational& r)
 
 ostream& operator <<(ostream& out, const Rational& r)
 {
-	out << double(r.num) / double(r.den);
+	out << r.num << " / " << r.den;
 	return out;
 }
 
@@ -192,10 +192,10 @@ void Rational::Simplify()
 
 Rational Rational::sqrt()
 {
-	double res_double = num / den;	// Перевод Rational в double
-
+	double res_double = (double)num / den;	// Перевод Rational в double
+	
 	res_double = std::sqrt(res_double);	// Берем корень из double
-
+	
 	long long res_int = *(long long*)(&res_double);	// Приводим адрес к long long и сохраняем в переменную long long
 
 	int E = (int)((res_int >> 52) & 0x07FF);	// Достаем порядок из нашего числа ( [52..62] биты )
@@ -208,11 +208,11 @@ Rational Rational::sqrt()
 	Rational res;
 
 	res.num = E >= 0 ? M << E : M >> (-E);	// Если порядок положительный, смещаем биты влево, иначе вправо. ( убираем нормализованную форму числа)
-
+	
 	res.den = 1LL << 52;	// Соответствующий к числителю знаменатель
 
 	res.Simplify();	// Упрощаем
-
+	
 	return res;
 }
 
